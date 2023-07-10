@@ -9,9 +9,6 @@ void init() {
 #endif
 }
 
-// void transpose(int arr[], int n){
-
-// }
 
 int main() {
     init();
