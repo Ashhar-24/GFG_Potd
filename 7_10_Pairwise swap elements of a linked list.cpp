@@ -1,53 +1,38 @@
 /*
-  reverse alternate nodes and append at the end
+  Pairwise swap a linked list
   The input list will have at least one element
-  Node is defined as
-  struct Node
-  {
-      int data;
-      struct Node *next;
+  node is defined as
 
-      Node(int x){
+struct Node
+{
+    int data;
+    struct Node* next;
+
+    Node(int x){
         data = x;
         next = NULL;
-      }
+    }
 
-   };
-
+}*head;
 */
 class Solution
 {
 public:
-
-    Node*reverse(Node*head) {
-        // edge case=> zero or one element case
-        if (!head or !head->next) {
-            return head;
-        }
-        Node*smallHead = reverse(head->next);
-        Node*temp = head;
-        temp->next->next = head;
-        temp->next = NULL;
-        return smallHead;
-
-    }
-
-    void rearrange(struct Node *odd)
+    Node* pairWiseSwap(struct Node* head)
     {
-        Node *first = odd;  // odd nodes
-        Node *second = odd->next;   // even nodes
-        Node *temp = odd->next;
-
-        // iterating over the linked list
-
-        while (first->next and second->next) {
-            first->next = first->next->next;
-            first = first->next;
-            second->next = second->next->next;
-            second = second->next;
+        Node*temp = new Node(0);
+        temp->next = head;
+        Node*prev = temp;
+        Node*curr = head;
+        while (curr != NULL and curr->next != NULL) {
+            Node* nextNode = curr->next;
+            Node* nodeNextToNextNode = curr->next->next;
+            nextNode->next = curr;
+            curr->next = nodeNextToNextNode;
+            prev->next = nextNode;
+            prev = curr;
+            curr = nodeNextToNextNode;
         }
-
-        //  here, temp== second at the end of the iteratu=ion
-        first->next = reverse(temp);
+        return temp->next;
     }
 };
